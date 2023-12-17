@@ -1,0 +1,80 @@
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../fonts/Roboto/Roboto-Regular.ttf") format("truetype"),
+    url("../fonts/Roboto/Roboto-Regular.woff") format("woff");
+}
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 500;
+  src: url("../fonts/Roboto/Roboto-Medium.ttf") format("truetype"),
+    url("../fonts/Roboto/Roboto-Medium.woff") format("woff");
+}
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 600;
+  src: url("../fonts/Roboto/Roboto-Bold.ttf") format("truetype"),
+    url("../fonts/Roboto/Roboto-Bold.woff") format("woff");
+}
+
+@font-face {
+  font-family: "NotoSansKR";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../fonts/NotoSansKR/NotoSansKR-Regular.ttf") format("truetype"),
+    url("../fonts/NotoSansKR/NotoSansKR-Regular.woff") format("woff");
+  font-display: swap;
+}
+@font-face {
+  font-family: "NotoSansKR";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../fonts/NotoSansKR/NotoSansKR-Regular.otf") format("opentype"),
+    url("../fonts/NotoSansKR/NotoSansKR-Regular.ttf") format("truetype"),
+    url("../fonts/NotoSansKR/NotoSansKR-Regular.woff") format("woff");
+  font-display: swap;
+}
+@font-face {
+  font-family: "NotoSansKR";
+  font-style: normal;
+  font-weight: 500;
+  src: url("../fonts/NotoSansKR/NotoSansKR-Medium.otf") format("opentype"),
+    url("../fonts/NotoSansKR/NotoSansKR-Medium.ttf") format("truetype"),
+    url("../fonts/NotoSansKR/NotoSansKR-Medium.woff") format("woff");
+  font-display: swap;
+}
+@font-face {
+  font-family: "NotoSansKR";
+  font-style: normal;
+  font-weight: 600;
+  src: url("../fonts/NotoSansKR/NotoSansKR-Bold.otf") format("opentype"),
+    url("../fonts/NotoSansKR/NotoSansKR-Bold.ttf") format("truetype"),
+    url("../fonts/NotoSansKR/NotoSansKR-Bold.woff") format("woff");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../fonts/Pretendard/Pretendard-Regular.otf") format("opentype"),
+    url("../fonts/Pretendard/Pretendard-Regular.woff") format("woff");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Pretendard";
+  font-style: normal;
+  font-weight: 500;
+  src: url("../fonts/Pretendard/PretendardMedium.woff") format("woff");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Pretendard";
+  font-style: normal;
+  font-weight: 700;
+  src: url("../fonts/Pretendard/PretendardBold.woff") format("woff");
+  font-display: swap;
+}
