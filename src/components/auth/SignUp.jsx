@@ -1,13 +1,39 @@
-import React from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { postUserFetch } from "../../data/api";
+import { QueryKeys } from "../../queryClient";
+import { useNavigate } from "react-router-dom";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { isLoginState, isSignUpState } from "../../utils/atom";
 
 const SingUp = () => {
+  const [userData, setUserData] = useState(null);
+
+  const isLogin = useSetRecoilState(isLoginState);
+  const isSignUp = useSetRecoilState(isSignUpState);
+
   const {
     handleSubmit,
     register,
     formState: { errors },
     setError,
   } = useForm();
+
+  const queryClient = useQueryClient();
+
+  const { mutate: userInfo } = useMutation({
+    mutationFn: (info) => postUserFetch(info),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [QueryKeys.USER],
+        refetchType: "active",
+      });
+    },
+    onError: () => {
+      console.error("error");
+    },
+  });
 
   const onSubmit = (data) => {
     if (data.password !== data.passwordCheck) {
@@ -18,10 +44,18 @@ const SingUp = () => {
         },
         { shouldFocus: true }
       );
-    } else {
-      localStorage.setItem("email", data.email);
-      localStorage.setItem("nickname", data.nickname);
     }
+
+    isLogin(true);
+    isSignUp(false);
+
+    const user = {
+      id: new Date(),
+      name: data.nickname,
+      email: data.email,
+      password: data.password,
+    };
+    userInfo(user);
   };
 
   return (
