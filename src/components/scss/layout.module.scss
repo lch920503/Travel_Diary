@@ -3,7 +3,12 @@
 }
 
 .btn-group {
-  li {
+  display: flex;
+  align-items: center;
+
+  button {
+    display: block;
+    padding: 2px 4px;
     cursor: pointer;
   }
 }

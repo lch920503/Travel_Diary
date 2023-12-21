@@ -1,5 +1,6 @@
+import React, { useEffect } from "react";
+import styles from "../scss/main.module.scss";
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
 import { useForm } from "react-hook-form";
 import { QueryKeys } from "../../queryClient";
 import { getUserFetch } from "../../data/api";
@@ -14,6 +15,7 @@ const Login = () => {
     handleSubmit,
     register,
     formState: { errors },
+    setError,
   } = useForm();
 
   const navigate = useNavigate();
@@ -36,8 +38,15 @@ const Login = () => {
     );
 
     if (filteredPw.length === 1) {
-      navigate("/mypage");
+      navigate("/");
       setIsLogin(true);
+      localStorage.setItem("isLogin", true);
+    } else {
+      setError(
+        "password",
+        { message: "아이디 또는 비밀번호가 올바르지 않습니다" },
+        { shouldFocus: true }
+      );
     }
   };
 
@@ -48,14 +57,18 @@ const Login = () => {
       ) : (
         <>
           {status === "success" && (
-            <>
-              <h1>Login</h1>
-              <form onSubmit={handleSubmit(onSubmit)}>
-                <div>
-                  <label>이메일</label>
+            <main>
+              <h1 className="mb-4">로그인</h1>
+              <form
+                onSubmit={handleSubmit(onSubmit)}
+                className="flex flex-col gap-2"
+              >
+                <div className="flex gap-2 items-center h-7">
+                  <label className="w-[70px]">이메일</label>
                   <input
                     type="text"
                     id="email"
+                    className="h-full p-2"
                     {...register("email", {
                       required: "이메일 주소를 입력해주세요",
                       pattern: {
@@ -67,10 +80,11 @@ const Login = () => {
                   />
                   <span>{errors.email?.message}</span>
                 </div>
-                <div>
-                  <label>비밀번호</label>
+                <div className="flex gap-2 items-center h-7">
+                  <label className="w-[70px]">비밀번호</label>
                   <input
                     type="password"
+                    className="h-full p-2"
                     {...register("password", {
                       required: {
                         value: /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{4,12}$/,
@@ -80,9 +94,11 @@ const Login = () => {
                   />
                   <span>{errors.password?.message}</span>
                 </div>
-                <button type="submit">로그인</button>
+                <button type="submit" className={styles["btn-login"]}>
+                  로그인
+                </button>
               </form>
-            </>
+            </main>
           )}
         </>
       )}
