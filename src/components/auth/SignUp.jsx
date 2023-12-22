@@ -1,17 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "../scss/main.module.scss";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
-import { postUserFetch } from "../../data/api";
+import { getUserFetch, postUserFetch } from "../../data/api";
 import { QueryKeys } from "../../queryClient";
 import { useSetRecoilState } from "recoil";
 import { isLoginState, isSignUpState } from "../../utils/atom";
+import { useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 
 const SignUp = () => {
-  const [userData, setUserData] = useState(null);
+  const navigate = useNavigate();
 
-  const isLogin = useSetRecoilState(isLoginState);
-  const isSignUp = useSetRecoilState(isSignUpState);
+  const setIsLogin = useSetRecoilState(isLoginState);
+  const setIsSignUp = useSetRecoilState(isSignUpState);
 
   const {
     handleSubmit,
@@ -29,15 +31,34 @@ const SignUp = () => {
         queryKey: [QueryKeys.USER],
         refetchType: "active",
       });
+      setIsLogin(false);
+      setIsSignUp(false);
+      navigate("/login");
     },
     onError: () => {
       console.error("error");
     },
   });
 
+  const { data: userInfoData } = useQuery({
+    queryKey: [QueryKeys.USER],
+    queryFn: getUserFetch,
+  });
+
   const onSubmit = (data) => {
+    const filteredEmail = userInfoData?.filter(
+      (item) => item.email === data.email
+    );
+
+    if (filteredEmail.length === 1) {
+      return setError(
+        "email",
+        { message: "이미 존재하는 이메일 입니다" },
+        { shouldFocus: true }
+      );
+    }
     if (data.password !== data.passwordCheck) {
-      setError(
+      return setError(
         "passwordCheck",
         {
           message: "비밀번호가 일치하지 않습니다",
@@ -46,11 +67,8 @@ const SignUp = () => {
       );
     }
 
-    isLogin(true);
-    isSignUp(false);
-
     const user = {
-      id: new Date(),
+      id: uuidv4(),
       name: data.nickname,
       email: data.email,
       password: data.password,

@@ -12,15 +12,13 @@ const Header = () => {
   const handleMoveToMain = () => {
     navigate("/");
   };
-  const handleLogin = () => {
-    navigate("/login");
-    setIsLogin(false);
-  };
-  const handleLogout = () => {
+
+  const handleLogBtn = () => {
     navigate("/login");
     setIsLogin(false);
     localStorage.removeItem("isLogin");
   };
+
   const handleSignUp = () => {
     navigate("/signUp");
   };
@@ -40,17 +38,14 @@ const Header = () => {
       <nav>
         <ul className={[styles["btn-group"], "flex gap-2"].join(" ")}>
           <li>
-            {isLogin ? (
-              <button onClick={handleLogout}>로그아웃</button>
-            ) : (
-              <button onClick={handleLogout}>로그인</button>
-            )}
+            <button onClick={handleLogBtn}>
+              {isLogin ? "로그아웃" : "로그인"}
+            </button>
           </li>
           <li>
-            <button>User</button>
-          </li>
-          <li>
-            <button onClick={handleSignUp}>Sign Up</button>
+            <button onClick={!isLogin && handleSignUp}>
+              {isLogin ? "사용자" : "회원가입"}
+            </button>
           </li>
           <li>
             <button>글쓰기</button>
