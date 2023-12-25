@@ -4,6 +4,7 @@ import Main from "../pages/Main";
 import MyPage from "../pages/MyPage";
 import SignUp from "../components/auth/SignUp";
 import Login from "../components/auth/Login";
+import Write from "../pages/Write";
 
 export const router = createBrowserRouter([
   {
@@ -15,7 +16,7 @@ export const router = createBrowserRouter([
         element: <Main />,
       },
       {
-        path: "/mypage",
+        path: "/users",
         element: <MyPage />,
       },
       {
@@ -25,6 +26,10 @@ export const router = createBrowserRouter([
       {
         path: "/login",
         element: <Login />,
+      },
+      {
+        path: "/contents/write",
+        element: <Write />,
       },
     ],
   },

@@ -12,5 +12,15 @@
       "email": "b@b.com",
       "password": "b1111"
     }
+  ],
+  "posts": [
+    {
+      "id": "id",
+      "image": "image",
+      "date": "2023-11-11",
+      "description": "description",
+      "bookmark": 1,
+      "tags": "tags"
+    }
   ]
 }

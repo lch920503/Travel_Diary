@@ -14,13 +14,17 @@ const Header = () => {
   };
 
   const handleLogBtn = () => {
-    navigate("/login");
+    navigate("login");
     setIsLogin(false);
     localStorage.removeItem("isLogin");
   };
 
   const handleSignUp = () => {
-    navigate("/signUp");
+    navigate("signUp");
+  };
+
+  const handleWrite = () => {
+    navigate("contents/write");
   };
 
   useEffect(() => {
@@ -31,7 +35,7 @@ const Header = () => {
   }, [isLogin]);
 
   return (
-    <header className="fixed t-0 l-0 w-full flex justify-between py-3 px-4 shadow-md ">
+    <header className="fixed t-0 l-0 w-full flex justify-between py-3 px-4 shadow-md bg-white">
       <h1 className={styles["logo"]} onClick={handleMoveToMain}>
         Logo
       </h1>
@@ -48,7 +52,7 @@ const Header = () => {
             </button>
           </li>
           <li>
-            <button>글쓰기</button>
+            <button onClick={handleWrite}>글쓰기</button>
           </li>
         </ul>
       </nav>
