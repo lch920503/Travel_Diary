@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import styles from "../scss/layout.module.scss";
+import "../scss/layout.scss";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { isLoginState } from "../../utils/atom";
@@ -36,11 +36,11 @@ const Header = () => {
 
   return (
     <header className="fixed t-0 l-0 w-full flex justify-between py-3 px-4 shadow-md bg-white">
-      <h1 className={styles["logo"]} onClick={handleMoveToMain}>
+      <h1 className="logo" onClick={handleMoveToMain}>
         Logo
       </h1>
       <nav>
-        <ul className={[styles["btn-group"], "flex gap-2"].join(" ")}>
+        <ul className="btn-group">
           <li>
             <button onClick={handleLogBtn}>
               {isLogin ? "로그아웃" : "로그인"}

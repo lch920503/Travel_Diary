@@ -1,12 +1,8 @@
 import React from "react";
-import styles from "../scss/layout.module.scss";
+import "../scss/layout.scss";
 
 const Footer = () => {
-  return (
-    <footer className={[styles["footer"], "px-4 py-2"].join(" ")}>
-      Footer
-    </footer>
-  );
+  return <footer className="footer">Footer</footer>;
 };
 
 export default Footer;

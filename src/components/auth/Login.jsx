@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../scss/main.module.scss";
+import "../scss/login.scss";
 import { useQuery } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { QueryKeys } from "../../queryClient";
@@ -57,18 +57,14 @@ const Login = () => {
       ) : (
         <>
           {status === "success" && (
-            <main>
-              <h1 className="mb-4">로그인</h1>
-              <form
-                onSubmit={handleSubmit(onSubmit)}
-                className="flex flex-col gap-2"
-              >
-                <div className="flex gap-2 items-center h-7">
-                  <label className="w-[70px]">이메일</label>
+            <main className="login-main">
+              <h1 className="title">로그인</h1>
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <div className="input-box">
+                  <label>이메일</label>
                   <input
                     type="text"
                     id="email"
-                    className="h-full p-2"
                     {...register("email", {
                       required: "이메일 주소를 입력해주세요",
                       pattern: {
@@ -80,11 +76,10 @@ const Login = () => {
                   />
                   <span>{errors.email?.message}</span>
                 </div>
-                <div className="flex gap-2 items-center h-7">
-                  <label className="w-[70px]">비밀번호</label>
+                <div className="input-box">
+                  <label>비밀번호</label>
                   <input
                     type="password"
-                    className="h-full p-2"
                     {...register("password", {
                       required: {
                         value: /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{4,12}$/,
@@ -94,7 +89,7 @@ const Login = () => {
                   />
                   <span>{errors.password?.message}</span>
                 </div>
-                <button type="submit" className={styles["btn-login"]}>
+                <button type="submit" className="btn-login">
                   로그인
                 </button>
               </form>

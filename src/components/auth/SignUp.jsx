@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../scss/main.module.scss";
+import "../scss/signup.scss";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { getUserFetch, postUserFetch } from "../../data/api";
@@ -77,13 +77,12 @@ const SignUp = () => {
   };
 
   return (
-    <main>
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-1">
-        <div className="flex gap-2 items-center h-7">
-          <p>아이디</p>
+    <main className="signup-main">
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="input-box">
+          <label>아이디</label>
           <input
             type="text"
-            className="h-full p-2"
             id="email"
             placeholder="아이디를 입력해주세요"
             {...register("email", {
@@ -97,11 +96,10 @@ const SignUp = () => {
           />
           <span>{errors.email?.message}</span>
         </div>
-        <div className="flex gap-2 items-center h-7">
-          <p>비밀번호</p>
+        <div className="input-box">
+          <label>비밀번호</label>
           <input
             type="password"
-            className="h-full p-2"
             placeholder="비밀번호를 입력해주세요"
             {...register("password", {
               required: "패스워드를 입력해주세요",
@@ -121,11 +119,10 @@ const SignUp = () => {
           />
           <span>{errors.password?.message}</span>
         </div>
-        <div className="flex gap-2 items-center h-7">
-          <p>비밀번호 확인</p>
+        <div className="input-box">
+          <label>비밀번호 확인</label>
           <input
             type="password"
-            className="h-full p-2"
             id="passwordCheck"
             placeholder="비밀번호를 입력해주세요"
             {...register("passwordCheck", {
@@ -146,11 +143,10 @@ const SignUp = () => {
           />
           <span>{errors.passwordCheck?.message}</span>
         </div>
-        <div className="flex gap-2 items-center h-7">
-          <p>닉네임</p>
+        <div className="input-box">
+          <label>닉네임</label>
           <input
             type="text"
-            className="h-full p-2"
             id="nickname"
             placeholder="닉네임을 입력해주세요"
             {...register("nickname", {
@@ -167,7 +163,7 @@ const SignUp = () => {
           />
           <span>{errors.nickname?.message}</span>
         </div>
-        <button type="submit" className={styles["btn-signup"]}>
+        <button type="submit" className="btn-signup">
           회원가입
         </button>
       </form>

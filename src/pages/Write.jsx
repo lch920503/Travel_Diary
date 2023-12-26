@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import styles from "../components/scss/main.module.scss";
+import "../components/scss/write.scss";
 
 const Write = () => {
   const [title, setTitle] = useState("");
   const [date, setDate] = useState("");
-  const [uploadImg, setUploadImg] = useState(null);
+  const [uploadImg, setUploadImg] = useState([]);
 
   const onChangeTitle = (e) => {
     setTitle(e.target.value);
@@ -15,48 +15,67 @@ const Write = () => {
   };
 
   const onChangeImg = (e) => {
-    const files = e.target.files[0];
+    const files = e.target.files;
+    const fileArr = [];
 
-    const reader = new FileReader();
-    if (files) {
-      reader.readAsDataURL(files);
+    const length = files.length > 10 ? 10 : files.length;
+
+    for (let i = 0; i < length; i++) {
+      const reader = new FileReader();
+      const currentFile = files[i];
+
+      reader.readAsDataURL(currentFile);
+
+      reader.onloadend = ((index) => () => {
+        const resultImg = reader.result;
+        fileArr.push(resultImg);
+
+        if (index === length - 1) {
+          setUploadImg((prev) => [...fileArr, ...prev]);
+        }
+      })(i);
     }
-    reader.onloadend = () => {
-      const previewImgUrl = reader.result;
-
-      if (previewImgUrl) {
-        setUploadImg([...previewImgUrl, uploadImg]);
-      }
-    };
   };
 
   return (
-    <main className="flex flex-col gap-2">
-      <div className="flex gap-2 items-center">
+    <main className="write-main">
+      <div className="input-box">
         <label htmlFor="title">제목</label>
         <input
           type="text"
-          className="h-full px-2 py-1"
+          className="p-sm"
           id="title"
           value={title}
           onChange={onChangeTitle}
           placeholder="제목을 입력해주세요"
         />
       </div>
-      <div className="flex gap-2 items-center">
+      <div className="input-box">
         <label htmlFor="date">날짜</label>
         <input
           type="date"
-          className="h-full px-2 py-1"
+          className="p-sm"
           id="date"
           value={date}
           onChange={onChangeDate}
         />
       </div>
       <div>
-        <input type="file" onChange={(e) => onChangeImg(e)} accept="image/*" />
-        <div className={[styles["preview-img"], "mt-2"].join(" ")}>
-          <img src={uploadImg} alt="" />
+        <label htmlFor="file-upload" className="label-file-upload">
+          파일 업로드
+        </label>
+        <input
+          type="file"
+          id="file-upload"
+          className="input-file-upload"
+          onChange={(e) => onChangeImg(e)}
+          accept="image/*"
+          multiple={true}
+        />
+        <div className="preview-img mt-2">
+          {uploadImg.map((item, index) => (
+            <img key={index} src={item} alt="여행지 이미지" />
+          ))}
         </div>
       </div>
       <div>
@@ -66,7 +85,7 @@ const Write = () => {
         <textarea
           name=""
           id=""
-          className={[styles["contents"], "h-full p-2"].join(" ")}
+          className="contents h-full p-2"
           cols="30"
           rows="10"
           placeholder="내용"
